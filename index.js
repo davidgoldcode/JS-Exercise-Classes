@@ -1,3 +1,5 @@
+npm install
+
 /*
   EXAMPLE TASK:
     - Write an Airplane class whose constructor initializes `name` from an argument.
@@ -40,9 +42,35 @@ class Airplane {
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-class Person {
+class Person { 
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+    this.stomach = [];
+  }
 
+  eat(food) {
+    if (this.stomach.length < 10) {
+      this.stomach.push(food);
+    }
+  }
+
+  poop() {
+    this.stomach = [];
+  }
+
+  toString() {
+    return `${this.name}, ${this.age}`
+  }
 }
+
+let me = new Person('David', 26);
+console.log('task 1', me);
+me.eat('Pasta');
+console.log('task 1', me.stomach);
+me.poop();
+console.log('task 1', me.stomach);
+console.log('task 1', me.toString());
 
 /*
   TASK 2
@@ -59,8 +87,31 @@ class Person {
 */
 
 class Car {
+  constructor(model, milesPerGallon) {
+    this.tank = 0;
+    this.odometer = 0;
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
+  }
 
+  fill(gallons) {
+    this.tank += gallons;
+  }
+
+  drive(distance) {
+    this.odometer += distance;
+    if (this.tank > 0) {
+      this.tank -= distance/milesPerGallon;
+    } else {
+      return `I ran out of fuel at ${this.odometer} miles!`
+  }
 }
+
+let ford = new Car("Ford", 20);
+
+console.log("task 2", ford);
+console.log("task 2 drive test", ford.drive(1));
+
 
 /*
   TASK 3
@@ -75,8 +126,21 @@ class Car {
         + {name} and {location} of course come from the instance's own properties.
 */
 class Lambdasian {
+  constructor(obj) {
+    this.name = obj.name;
+    this.age = obj.age;
+    this.location = obj.location;
+  }
 
+  speak() {
+    return `Hello my name is ${this.name}, I am from ${this.location}`
+  }
 }
+
+let davidLambda = {name: 'David', age: 26, location: 'NYC',};
+let newDavid = new Lambdasian(davidLambda);
+console.log('task 3', newDavid);
+console.log('task 3', newDavid.speak());
 
 /*
   TASK 4
@@ -92,9 +156,46 @@ class Lambdasian {
         + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
         + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
 */
-class Instructor {
+class Instructor extends Lambdasian {
+  constructor(obj) {
+    super(obj);
+    this.specialty = obj.specialty;
+    this.favLanguage = obj.favLanguage;
+    this.catchPhrase = obj.catchPhrase;
+  }
 
+  demo(subject) {
+    return `Today we are learning about ${subject}`
+  }
+
+  grade(student, subject) {
+    return `${student} receives a perfect score on ${subject}`
+  }
+
+  randomGrade(studentObj) {
+    let random = Math.random() < 0.5 ? -1 : 1;
+    let pointDeduct = Math.round(Math.random() * 100);
+    return `${studentObj.grade += pointDeduct * random}`;  
+    ; //stretch
+  }
 }
+
+let brittH = new Instructor({name: 'Britt', location: 'East coast', specialty: 'HTML', favLanguage: 'Javascript', catchPhrase: 'Any questions'});
+let davidG2 = {
+  name: 'David',
+  age: 26, 
+  location: 'NYC',
+  previousBackground: 'Finance & Sales',
+  className: 'Web 34',
+  favSubjects: ['Javascript', 'HTML', 'CSS'],
+  grade: 100, // stretch
+}
+console.log('task 4', brittH);
+console.log(brittH.demo('javascript'));
+console.log('task 4', brittH.demo('Javascript'));
+console.log('task 4', brittH.grade('David', 'Java'));
+console.log('stretch', brittH.randomGrade(davidG2));
+
 
 /*
   TASK 5
@@ -111,9 +212,53 @@ class Instructor {
         + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
-class Student {
+class Student extends Lambdasian {
+  constructor(obj) {
+    super(obj);
+    this.previousBackground = obj.previousBackground;
+    this.className = obj.className;
+    this.favSubjects = obj.favSubjects;
+    this.grade = obj.grade; //stretch
+  }
 
-}
+  listSubjects() {
+    return `Loving ${this.favSubjects}!`
+  }
+
+  PRAssignment(subject) {
+    return `${this.name} has submitted a PR for ${subject}`
+  }
+
+  sprintChallenge(subject) {
+    return `${this.name} has begun sprint challenge for ${subject}`
+  }
+
+  willGraduate() {
+    // `${this.grade} > 70} ? Congrats, you're graduating! : Unfortunately, you're going to have to flex this subject`; - doesn't work, make note to find out why
+      if (`${this.grade}` > 70) {
+        return `Congrats, you're graduating!`;
+      } else {
+        `Unfortunately, you're going to have to flex this subject`;
+      }
+    }
+  }
+  
+let davidG = new Student({
+  name: 'David',
+  age: 26, 
+  location: 'NYC',
+  previousBackground: 'Finance & Sales',
+  className: 'Web 34',
+  favSubjects: ['Javascript', 'HTML', 'CSS'],
+  grade: 100, 
+})
+
+console.log('task 5', davidG);
+console.log('task 5', davidG.listSubjects());
+console.log('task 5', davidG.PRAssignment('Javaaaaa'));
+console.log('task 5', davidG.sprintChallenge('CSS FlexBox'));
+console.log('stretch', davidG.willGraduate());
+
 
 /*
   TASK 6
@@ -128,9 +273,36 @@ class Student {
         + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
-class ProjectManager {
+class ProjectManager extends Instructor {
+  constructor(obj) {
+    super(obj);
+    this.gradClassName = obj.gradClassName;
+    this.favInstructor = obj.favInstructor;
+  }
 
+  standup(slackChannel) {
+    return `${this.name} announces to ${slackChannel}, @channel standy times!`
+  }
+
+  debugsCode(studentObj, subject) {
+    return `${name} debugs ${studentObj.name}'s code on ${subject}`
+  }
 }
+
+let taja = new ProjectManager({
+  name: 'Taja',
+  age: 28,
+  location: 'Wash St',
+  previousBackground: 'I forgot',
+  className: 'web34',
+  favSubjects: 'node js',
+  gradClassName: 'web 20',
+  favInstructor: 'Britt',
+})
+
+console.log('task 6', taja);
+console.log('task 6', taja.standup('Web34'));
+console.log('task 6', taja.debugsCode(davidG, 'JavaScript'));
 
 /*
   STRETCH PROBLEM (no tests!)
