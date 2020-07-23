@@ -1,3 +1,5 @@
+npm install
+
 /*
   EXAMPLE TASK:
     - Write an Airplane class whose constructor initializes `name` from an argument.
@@ -40,9 +42,35 @@ class Airplane {
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-class Person {
+class Person { 
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+    this.stomach = [];
+  }
 
+  eat(food) {
+    if (this.stomach.length < 10) {
+      this.stomach.push(food);
+    }
+  }
+
+  poop() {
+    this.stomach = [];
+  }
+
+  toString() {
+    return `${this.name}, ${this.age}`
+  }
 }
+
+let me = new Person('David', 26);
+console.log('task 1', me);
+me.eat('Pasta');
+console.log('task 1', me.stomach);
+me.poop();
+console.log('task 1', me.stomach);
+console.log('task 1', me.toString());
 
 /*
   TASK 2
@@ -59,6 +87,22 @@ class Person {
 */
 
 class Car {
+  constructor(model, milesPerGallon) {
+    this.tank = 0;
+    this.odometer = 0;
+  }
+
+  fill(gallons) {
+    this.tank += gallons;
+  }
+
+  drive(distance) {
+    this.odometer += distance;
+    if (this.tank === 0) {
+      return `I ran out of fuel at ${this.odometer} miles!`
+    } else {
+      this.tank -= distance;
+  }
 
 }
 
