@@ -235,14 +235,14 @@ class Student extends Lambdasian {
 
   willGraduate() {
     // `${this.grade} > 70} ? Congrats, you're graduating! : Unfortunately, you're going to have to flex this subject`; - doesn't work, make note to find out why
-    if (`${this.grade}` > 70) {
-      return `Congrats, you're graduating!`;
-    } else {
-      `Unfortunately, you're going to have to flex this subject`;
+      if (`${this.grade}` > 70) {
+        return `Congrats, you're graduating!`;
+      } else {
+        `Unfortunately, you're going to have to flex this subject`;
+      }
     }
   }
-}
-
+  
 let davidG = new Student({
   name: 'David',
   age: 26, 
