@@ -182,7 +182,7 @@ console.log('task 4', brittH.grade('David', 'Java'));
 /*
   TASK 5
     - Write a Student class extending Lambdasian.
-    - Its constructor takes a single argument -  an object with the followin  g keys:
+    - Its constructor takes a single argument -  an object with the following keys:
         + All the keys used to initialize instances of Lambdasian.
         + `previousBackground` i.e. what the Student used to do before Lambda School
         + `className` i.e. CS132
@@ -194,9 +194,40 @@ console.log('task 4', brittH.grade('David', 'Java'));
         + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
-class Student {
+class Student extends Lambdasian {
+  constructor(obj) {
+    super(obj);
+    this.previousBackground = obj.previousBackground;
+    this.className = obj.className;
+    this.favSubjects = obj.favSubjects;
+  }
 
+  listSubjects() {
+    return `Loving ${this.favSubjects}!`
+  }
+
+  PRAssignment(subject) {
+    return `${this.name} has submitted a PR for ${subject}`
+  }
+
+  sprintChallenge(subject) {
+    return `${this.name} has begun sprint challenge for ${subject}`
+  }
 }
+
+let davidG = new Student({
+  name: 'David',
+  age: 26, 
+  location: 'NYC',
+  previousBackground: 'Finance & Sales',
+  className: 'Web 34',
+  favSubjects: ['Javascript', 'HTML', 'CSS'],
+})
+
+console.log('task 5', davidG);
+console.log('task 5', davidG.listSubjects());
+console.log('task 5', davidG.PRAssignment('Javaaaaa'));
+console.log('task 5', davidG.sprintChallenge('CSS FlexBox'));
 
 /*
   TASK 6
@@ -211,8 +242,20 @@ class Student {
         + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
-class ProjectManager {
+class ProjectManager extends Instructor {
+  constructor(obj) {
+    super(obj);
+    this.gradClassName = obj.gradClassName;
+    this.favInstructor = obj.favInstructor;
+  }
 
+  standup(slackChannel) {
+    return `${this.name} announces to ${slackChannel}, @channel standy times!`
+  }
+
+  debugsCode(studentObj, subject) {
+    return `${name} debugs ${studentObj.name}'s code on ${subject}`
+  }
 }
 
 /*
