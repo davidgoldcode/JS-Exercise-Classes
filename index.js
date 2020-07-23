@@ -258,6 +258,21 @@ class ProjectManager extends Instructor {
   }
 }
 
+let taja = new ProjectManager({
+  name: 'Taja',
+  age: 28,
+  location: 'Wash St',
+  previousBackground: 'I forgot',
+  className: 'web34',
+  favSubjects: 'node js',
+  gradClassName: 'web 20',
+  favInstructor: 'Britt',
+})
+
+console.log('task 6', taja);
+console.log('task 6', taja.standup('Web34');
+console.log('task 6', taja.debugsCode(davidG, 'JavaScript'));
+
 /*
   STRETCH PROBLEM (no tests!)
     - Extend the functionality of the Student by adding a prop called grade and setting it equal to a number between 1-100.
