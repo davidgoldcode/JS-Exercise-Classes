@@ -90,6 +90,8 @@ class Car {
   constructor(model, milesPerGallon) {
     this.tank = 0;
     this.odometer = 0;
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
   }
 
   fill(gallons) {
@@ -98,13 +100,18 @@ class Car {
 
   drive(distance) {
     this.odometer += distance;
-    if (this.tank === 0) {
-      return `I ran out of fuel at ${this.odometer} miles!`
+    if (this.tank > 0) {
+      this.tank -= distance/milesPerGallon;
     } else {
-      this.tank -= distance;
+      return `I ran out of fuel at ${this.odometer} miles!`
   }
-
 }
+
+let ford = new Car("Ford", 20);
+
+console.log("task 2", ford);
+console.log("task 2 drive test", ford.drive(1));
+
 
 /*
   TASK 3
@@ -119,8 +126,21 @@ class Car {
         + {name} and {location} of course come from the instance's own properties.
 */
 class Lambdasian {
+  constructor(obj) {
+    this.name = obj.name;
+    this.age = obj.age;
+    this.location = obj.location;
+  }
 
+  speak() {
+    return `Hello my name is ${this.name}, I am from ${this.location}`
+  }
 }
+
+let davidLambda = {name: 'David', age: 26, location: 'NYC',};
+let newDavid = new Lambdasian(davidLambda);
+console.log('task 3', newDavid);
+console.log('task 3', newDavid.speak());
 
 /*
   TASK 4
@@ -136,14 +156,33 @@ class Lambdasian {
         + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
         + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
 */
-class Instructor {
+class Instructor extends Lambdasian {
+  constructor(obj) {
+    super(obj);
+    this.specialty = obj.specialty;
+    this.favLanguage = obj.favLanguage;
+    this.catchPhrase = obj.catchPhrase;
+  }
 
+  demo(subject) {
+    return `Today we are learning about ${subject}`
+  }
+
+  grade(student, subject) {
+    return `${student} receives a perfect score on ${subject}`
+  }
 }
+
+let brittH = new Instructor({name: 'Britt', location: 'East coast', specialty: 'HTML', favLanguage: 'Javascript', catchPhrase: 'Any questions'});
+console.log('task 4', brittH);
+console.log(brittH.demo('javascript'));
+console.log('task 4', brittH.demo('Javascript'));
+console.log('task 4', brittH.grade('David', 'Java'));
 
 /*
   TASK 5
     - Write a Student class extending Lambdasian.
-    - Its constructor takes a single argument -  an object with the following keys:
+    - Its constructor takes a single argument -  an object with the followin  g keys:
         + All the keys used to initialize instances of Lambdasian.
         + `previousBackground` i.e. what the Student used to do before Lambda School
         + `className` i.e. CS132
