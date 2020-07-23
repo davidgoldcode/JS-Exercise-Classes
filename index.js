@@ -171,13 +171,31 @@ class Instructor extends Lambdasian {
   grade(student, subject) {
     return `${student} receives a perfect score on ${subject}`
   }
+
+  randomGrade(studentObj) {
+    let random = Math.random() < 0.5 ? -1 : 1;
+    let pointDeduct = Math.round(Math.random() * 100);
+    return `${studentObj.grade += pointDeduct * random}`;  
+    ; //stretch
+  }
 }
 
 let brittH = new Instructor({name: 'Britt', location: 'East coast', specialty: 'HTML', favLanguage: 'Javascript', catchPhrase: 'Any questions'});
+let davidG2 = {
+  name: 'David',
+  age: 26, 
+  location: 'NYC',
+  previousBackground: 'Finance & Sales',
+  className: 'Web 34',
+  favSubjects: ['Javascript', 'HTML', 'CSS'],
+  grade: 100, // stretch
+}
 console.log('task 4', brittH);
 console.log(brittH.demo('javascript'));
 console.log('task 4', brittH.demo('Javascript'));
 console.log('task 4', brittH.grade('David', 'Java'));
+console.log('stretch', brittH.randomGrade(davidG2));
+
 
 /*
   TASK 5
@@ -200,6 +218,7 @@ class Student extends Lambdasian {
     this.previousBackground = obj.previousBackground;
     this.className = obj.className;
     this.favSubjects = obj.favSubjects;
+    this.grade = obj.grade; //stretch
   }
 
   listSubjects() {
@@ -213,6 +232,15 @@ class Student extends Lambdasian {
   sprintChallenge(subject) {
     return `${this.name} has begun sprint challenge for ${subject}`
   }
+
+  willGraduate() {
+    // `${this.grade} > 70} ? Congrats, you're graduating! : Unfortunately, you're going to have to flex this subject`; - doesn't work, make note to find out why
+    if (`${this.grade}` > 70) {
+      return `Congrats, you're graduating!`;
+    } else {
+      `Unfortunately, you're going to have to flex this subject`;
+    }
+  }
 }
 
 let davidG = new Student({
@@ -222,12 +250,15 @@ let davidG = new Student({
   previousBackground: 'Finance & Sales',
   className: 'Web 34',
   favSubjects: ['Javascript', 'HTML', 'CSS'],
+  grade: 100, 
 })
 
 console.log('task 5', davidG);
 console.log('task 5', davidG.listSubjects());
 console.log('task 5', davidG.PRAssignment('Javaaaaa'));
 console.log('task 5', davidG.sprintChallenge('CSS FlexBox'));
+console.log('stretch', davidG.willGraduate());
+
 
 /*
   TASK 6
@@ -270,7 +301,7 @@ let taja = new ProjectManager({
 })
 
 console.log('task 6', taja);
-console.log('task 6', taja.standup('Web34');
+console.log('task 6', taja.standup('Web34'));
 console.log('task 6', taja.debugsCode(davidG, 'JavaScript'));
 
 /*
